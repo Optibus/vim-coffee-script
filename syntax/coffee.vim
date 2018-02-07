@@ -39,6 +39,11 @@ syn match coffeeKeyword /\<for\s\+own\>/ contained containedin=coffeeRepeat
 \                       display
 hi def link coffeeKeyword Keyword
 
+
+" syn match coffeeFunction  /\s\?[-=]>/
+syn match coffeeFunction /@\?\I.*\w\+\ze\s*=\s*.*[-=]>/ contains=@coffeeIdentifier display
+hi def link coffeefunction Function
+
 syn keyword coffeeOperator  instanceof typeof delete length
 \                       display
 hi def link coffeeOperator Operator
@@ -46,8 +51,6 @@ hi def link coffeeOperator Operator
 syn match coffeeLength /\%(\S\.\)length/hs=e-5 containedin=@coffeeAll
 hi def link coffeeLength Label
 
-syn match coffeeFunction  /\s\?[-=]>/
-hi def link coffeeFunction Function
 
 " The first case matches symbol operators only if they have an operand before.
 syn match coffeeExtendedOp /\%(\S\s*\)\@<=[+\-*/%&|\^=!<>?.,;]\{-1,}\|--\|++\|:/
@@ -55,6 +58,10 @@ syn match coffeeExtendedOp /\%(\S\s*\)\@<=[+\-*/%&|\^=!<>?.,;]\{-1,}\|--\|++\|:/
 syn match coffeeExtendedOp /\<\%(and\|or\)=/ display
 hi def link coffeeExtendedOp coffeeOperator
 
+" This is separate from `coffeeExtendedOp` to help differentiate commas from
+" dots.
+syn match coffeeSpecialOp /[,;]/ display
+hi def link coffeeSpecialOp SpecialChar
 
 syn match coffeeBoolean /\<\%(true\|on\|yes\|false\|off\|no\)\>/ display
 hi def link coffeeBoolean Boolean
